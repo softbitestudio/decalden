@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DecalDen — Custom Vinyl Decals</title>
+<script>
+window.onerror=function(msg,src,line,col,err){window.parent.postMessage({type:'app-error',message:msg,source:src,lineno:line,colno:col,stack:err&&err.stack||''},'*');};
+window.onunhandledrejection=function(e){window.parent.postMessage({type:'app-error',message:'Unhandled promise rejection: '+(e.reason&&e.reason.message||e.reason||'unknown'),stack:e.reason&&e.reason.stack||''},'*');};
+window.addEventListener('error',function(e){var t=e&&e.target;if(t&&t!==window&&t.tagName==='SCRIPT'){var u=t.src||'';window.parent.postMessage({type:'app-error',message:'Failed to load script'+(u?': '+u:' (inline module)'),source:u},'*');}},true);
+(function(){var _f=window.fetch;window.fetch=function(){var a=arguments,u=typeof a[0]==='string'?a[0]:(a[0]&&a[0].url)||'';var p=_f.apply(this,a);p.then(function(r){if(r.status===500){r.clone().text().then(function(b){window.parent.postMessage({type:'fetch-error',url:u,status:500,body:b},'*');}).catch(function(){window.parent.postMessage({type:'fetch-error',url:u,status:500,body:''},'*');});}}).catch(function(e){window.parent.postMessage({type:'fetch-error',url:u,status:0,body:e.message||'fetch failed'},'*');});return p;};})();
+(function(){var ov,cur,on=false;function box(el){if(!ov){ov=document.createElement('div');ov.style.cssText='position:fixed;z-index:2147483647;pointer-events:none;border:2px solid #2563eb;background:rgba(37,99,235,0.12);border-radius:2px;box-sizing:border-box;';document.documentElement.appendChild(ov);}var r=el.getBoundingClientRect();ov.style.left=r.left+'px';ov.style.top=r.top+'px';ov.style.width=r.width+'px';ov.style.height=r.height+'px';}function esc(s){return (window.CSS&&CSS.escape)?CSS.escape(s):s;}function sel(el){var p=[],n=el;while(n&&n.nodeType===1&&n.tagName!=='HTML'){var s=n.tagName.toLowerCase();if(n.id){p.unshift(s+'#'+esc(n.id));break;}var par=n.parentNode;if(par){var same=Array.prototype.filter.call(par.children,function(c){return c.tagName===n.tagName;});if(same.length>1){s+=':nth-of-type('+(Array.prototype.indexOf.call(same,n)+1)+')';}}p.unshift(s);n=par;}return p.join(' > ');}function clip(s,n){s=s||'';return s.length>n?s.slice(0,n)+'...':s;}function mm(e){if(!on){return;}cur=e.target;box(cur);}function clk(e){if(!on){return;}e.preventDefault();e.stopPropagation();try{var el=e.target;window.parent.postMessage({type:'puter-element-selected',selector:sel(el),tag:el.tagName.toLowerCase(),id:el.id||'',className:(typeof el.className==='string'?el.className:''),text:clip((el.textContent||'').trim(),200),html:clip(el.outerHTML||'',800)},'*');}finally{stop();}}function start(){if(on){return;}on=true;document.addEventListener('mousemove',mm,true);document.addEventListener('click',clk,true);if(document.body){document.body.style.cursor='crosshair';}}function stop(){on=false;if(ov&&ov.parentNode){ov.parentNode.removeChild(ov);}ov=null;document.removeEventListener('mousemove',mm,true);document.removeEventListener('click',clk,true);if(document.body){document.body.style.cursor='';}}window.addEventListener('message',function(e){if(e.source!==window.parent){return;}if(!e.data||e.data.type!=='puter-select-mode'){return;}if(e.data.enabled){start();window.parent.postMessage({type:'puter-select-ready'},'*');}else{stop();}});window.addEventListener('scroll',function(){if(on&&cur){box(cur);}},true);window.addEventListener('resize',function(){if(on&&cur){box(cur);}},true);})();
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://js.puter.com/v2/"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#0e0f13; --panel:#16181f; --panel2:#1c1f28; --line:#2a2e3a; --ink:#f3f4f6; --sub:#9aa0ae; --accent:#e8ff5a; }
+  body{ font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); }
+  h1,h2,h3,.display{ font-family:'Space Grotesk',sans-serif; }
+  .panel{ background:var(--panel); border:1px solid var(--line); }
+  .swatch{ transition:transform .12s ease, border-color .12s ease; }
+  .swatch:hover{ transform:translateY(-2px); }
+  .vinyl-card{ transition:border-color .12s ease, background .12s ease; }
+  .vinyl-card.active{ border-color:var(--accent); background:var(--panel2); }
+  .vinyl-card.active .check{ opacity:1; }
+  input[type=range]{ -webkit-appearance:none; appearance:none; height:5px; border-radius:99px; background:#2a2e3a; }
+  input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; width:18px; height:18px; border-radius:50%; background:var(--accent); cursor:pointer; border:3px solid #0e0f13; }
+  ::-webkit-scrollbar{ width:10px; height:10px; }
+  ::-webkit-scrollbar-thumb{ background:#2a2e3a; border-radius:99px; }
+  .checker{ background-image:linear-gradient(45deg,#20232c 25%,transparent 25%),linear-gradient(-45deg,#20232c 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#20232c 75%),linear-gradient(-45deg,transparent 75%,#20232c 75%); background-size:22px 22px; background-position:0 0,0 11px,11px -11px,-11px 0; }
+  .btn-accent{ background:var(--accent); color:#12140a; }
+  .btn-accent:hover{ filter:brightness(1.05); }
+  .fade-in{ animation:fi .4s ease both; }
+  @keyframes fi{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+  .tag{ background:var(--panel2); border:1px solid var(--line); }
+  .field{ background:var(--panel2); border:1px solid var(--line); border-radius:10px; padding:10px 12px; font-size:14px; color:var(--ink); outline:none; width:100%; }
+  .field::placeholder{ color:#6b7280; }
+  .field:focus{ border-color:var(--accent); }
+  .ship-card{ transition:border-color .12s ease, background .12s ease; }
+  .ship-card.active{ border-color:var(--accent); background:var(--panel2); }
+  .ship-card.active .scheck{ opacity:1; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- Header -->
+<header class="border-b border-[var(--line)] sticky top-0 z-30 bg-[var(--bg)]/90 backdrop-blur">
+  <div class="max-w-7xl mx-auto px-5 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-2.5">
+      <div class="w-9 h-9 rounded-lg btn-accent grid place-items-center">
+        <i data-lucide="scissors" class="w-5 h-5"></i>
+      </div>
+      <div>
+        <div class="display font-bold text-lg leading-none tracking-tight">DecalDen
+        </div>
+        <div class="text-[10px] uppercase tracking-[0.2em] text-[var(--sub)]">Custom Vinyl Studio</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span id="authStatus" class="text-xs text-[var(--sub)] hidden sm:inline"></span>
+      <button id="authBtn" class="text-sm font-medium px-3.5 py-2 rounded-lg border border-[var(--line)] hover:bg-[var(--panel2)] flex items-center gap-2">
+        <i data-lucide="user" class="w-4 h-4"></i><span id="authBtnText">Sign in</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="max-w-7xl mx-auto px-5 pt-10 pb-6">
+  <div class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <p class="text-[var(--accent)] text-xs font-semibold uppercase tracking-[0.2em] mb-2">Design Studio</p>
+      <h1 class="display text-3xl sm:text-4xl font-bold tracking-tight max-w-xl">Turn any image into a custom cut vinyl decal.</h1>
+      <p class="text-[var(--sub)] mt-3 max-w-lg">Upload your artwork, pick your vinyl, and get an instant mockup with a live price estimate. We handle the rest.</p>
+    </div>
+    <div class="flex gap-6 text-center">
+      <div><div class="display text-2xl font-bold">7+</div><div class="text-[11px] text-[var(--sub)] uppercase tracking-wider">Vinyl types</div></div>
+      <div><div class="display text-2xl font-bold">48h</div><div class="text-[11px] text-[var(--sub)] uppercase tracking-wider">Turnaround</div></div>
+      <div><div class="display text-2xl font-bold">B&amp;W</div><div class="text-[11px] text-[var(--sub)] uppercase tracking-wider">Auto convert</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Main grid -->
+<main class="max-w-7xl mx-auto px-5 pb-24 grid lg:grid-cols-[1fr_400px] gap-6">
+
+  <!-- LEFT: Configurator -->
+  <div class="space-y-6">
+
+    <!-- Step 1: Upload -->
+    <section class="panel rounded-2xl p-5">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="step-badge">1</span><h2 class="display font-semibold text-lg">Upload your image</h2>
+      </div>
+      <div id="dropZone" class="border-2 border-dashed border-[var(--line)] rounded-xl p-8 text-center cursor-pointer hover:border-[var(--accent)] transition-colors">
+        <input type="file" id="fileInput" accept="image/*" class="hidden" />
+        <div class="w-12 h-12 rounded-full bg-[var(--panel2)] grid place-items-center mx-auto mb-3">
+          <i data-lucide="image-up" class="w-6 h-6 text-[var(--accent)]"></i>
+        </div>
+        <p class="font-medium">Drop an image here or <span class="text-[var(--accent)] underline">browse</span></p>
+        <p class="text-xs text-[var(--sub)] mt-1">PNG, JPG, SVG — logos &amp; high-contrast art work best. Bold Lines, Well defined shapes. Or Experiment, like tge naughty Scientist you are ;p </p>
+      </div>
+      <div id="imgControls" class="hidden mt-4">
+        <div class="flex items-center justify-between mb-2">
+          <label class="text-sm text-[var(--sub)]">Black &amp; white threshold</label>
+          <span id="threshVal" class="text-sm font-mono">128</span>
+        </div>
+        <input type="range" id="threshold" min="20" max="235" value="128" class="w-full" />
+        <div class="flex items-center gap-4 mt-3">
+          <label class="flex items-center gap-2 text-sm cursor-pointer">
+            <input type="checkbox" id="invert" class="accent-[var(--accent)] w-4 h-4" /> Invert
+          </label>
+          <button id="removeImg" class="text-sm text-[var(--sub)] hover:text-red-400 flex items-center gap-1 ml-auto">
+            <i data-lucide="trash-2" class="w-4 h-4"></i> Remove
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 2: Vinyl -->
+    <section class="panel rounded-2xl p-5">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="step-badge">2</span><h2 class="display font-semibold text-lg">Choose your flavor (vinyl)</h2>
+        <sup>*please do not eat the vinyl. i know it looks tasty.</sup>
+      </div>
+      <div id="vinylGrid" class="grid sm:grid-cols-2 gap-3"></div>
+
+      <div id="colorRow" class="mt-4 hidden">
+        <label class="text-sm text-[var(--sub)] block mb-2">Vinyl color</label>
+        <div id="colorSwatches" class="flex flex-wrap gap-2.5"></div>
+      </div>
+    </section>
+
+    <!-- Step 3: Size -->
+    <section class="panel rounded-2xl p-5">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="step-badge">3</span><h2 class="display font-semibold text-lg">Size &amp; quantity</h2>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-4">
+        <div>
+          <div class="flex justify-between mb-2"><label class="text-sm text-[var(--sub)]">Width <span class="text-[10px] text-[var(--sub)]">(max 8.5")</span></label><span class="text-sm font-mono"><span id="wVal">4</span>"</span></div>
+          <input type="range" id="width" min="1" max="8.5" value="4" step="0.5" class="w-full" />
+        </div>
+        <div>
+          <div class="flex justify-between mb-2"><label class="text-sm text-[var(--sub)]">Height</label><span class="text-sm font-mono"><span id="hVal">4</span>"</span></div>
+          <input type="range" id="height" min="1" max="24" value="4" step="0.5" class="w-full" />
+        </div>
+        <div>
+          <div class="flex justify-between mb-2"><label class="text-sm text-[var(--sub)]">Quantity</label><span class="text-sm font-mono" id="qVal">1</span></div>
+          <input type="range" id="qty" min="1" max="200" value="1" class="w-full" />
+        </div>
+      </div>
+      <div class="mt-4">
+        <label class="text-sm text-[var(--sub)] block mb-2">Finish shape</label>
+        <div id="shapeRow" class="flex flex-wrap gap-2"></div>
+      </div>
+    </section>
+
+    <!-- Step 4: Shipping -->
+    <section class="panel rounded-2xl p-5">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="step-badge">4</span><h2 class="display font-semibold text-lg">Shipping</h2>
+      </div>
+      <label class="text-sm text-[var(--sub)] block mb-2">Shipping method</label>
+      <div id="shipRow" class="grid sm:grid-cols-2 gap-3"></div>
+      <p id="shipNote" class="text-[11px] text-[var(--sub)] mt-2 hidden"></p>
+
+      <div class="mt-5">
+        <label class="text-sm text-[var(--sub)] block mb-2">Shipping address</label>
+        <div class="grid sm:grid-cols-2 gap-3">
+          <input id="shName" type="text" placeholder="Full name" class="field sm:col-span-2" />
+          <input id="shLine1" type="text" placeholder="Street address" class="field sm:col-span-2" />
+          <input id="shLine2" type="text" placeholder="Apt, suite (optional)" class="field sm:col-span-2" />
+          <input id="shCity" type="text" placeholder="City" class="field" />
+          <input id="shState" type="text" placeholder="State / Region" class="field" />
+          <input id="shZip" type="text" placeholder="ZIP / Postal code" class="field" />
+          <input id="shCountry" type="text" placeholder="Country" class="field" />
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- RIGHT: Mockup + price (sticky) -->
+  <div class="lg:sticky lg:top-24 h-max space-y-4">
+    <section class="panel rounded-2xl overflow-hidden">
+      <div class="px-5 py-3 border-b border-[var(--line)] flex items-center justify-between">
+        <span class="text-sm font-semibold flex items-center gap-2"><i data-lucide="eye" class="w-4 h-4 text-[var(--accent)]"></i> Behold~♪</span>
+        <span id="vinylTag" class="tag text-[11px] px-2 py-1 rounded-full text-[var(--sub)]">No vinyl</span>
+      </div>
+      <div class="checker p-6 grid place-items-center min-h-[300px]">
+        <div id="mockWrap" class="grid place-items-center text-center">
+          <div id="mockEmpty" class="text-[var(--sub)]">
+            <i data-lucide="sparkles" class="w-10 h-10 mx-auto mb-2 opacity-50"></i>
+            <p class="text-sm">Upload an image to<br>preview your decal</p>
+          </div>
+          <canvas id="mockCanvas" class="hidden max-w-full rounded-md" width="600" height="600"></canvas>
+        </div>
+      </div>
+      <div class="px-5 py-3 border-t border-[var(--line)] text-[11px] text-[var(--sub)] flex items-center gap-2">
+        <i data-lucide="info" class="w-3.5 h-3.5"></i> Image auto-converted to black &amp; white for die-cut.
+      </div>
+    </section>
+
+    <section class="panel rounded-2xl p-5">
+      <div class="space-y-2 text-sm">
+        <div class="flex justify-between"><span class="text-[var(--sub)]">Base material</span><span id="pBase" class="font-mono">—</span></div>
+        <div class="flex justify-between"><span class="text-[var(--sub)]">Area &amp; size</span><span id="pArea" class="font-mono">—</span></div>
+        <div class="flex justify-between"><span class="text-[var(--sub)]">Quantity</span><span id="pQty" class="font-mono">×1</span></div>
+        <div class="flex justify-between text-[var(--accent)]"><span >Volume discount</span><span id="pDisc" class="font-mono">—</span></div>
+        <div class="flex justify-between"><span class="text-[var(--sub)]">Subtotal</span><span id="pSubtotal" class="font-mono">—</span></div>
+        <div class="flex justify-between"><span class="text-[var(--sub)]">Shipping</span><span id="pShip" class="font-mono">Free</span></div>
+      </div>
+      <div class="border-t border-[var(--line)] my-4"></div>
+      <div class="flex items-end justify-between">
+        <div>
+          <div class="text-xs text-[var(--sub)] uppercase tracking-wider">Estimated total</div>
+          <div id="unitPrice" class="text-[11px] text-[var(--sub)] mt-1">—</div>
+        </div>
+        <div id="total" class="display text-3xl font-bold">$0.00</div>
+      </div>
+      <button id="purchaseBtn" class="btn-accent w-full mt-5 py-3.5 rounded-xl font-semibold flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        <i data-lucide="send" class="w-4.5 h-4.5"></i> Purchase &amp; send order
+      </button>
+      <p id="purchaseHint" class="text-[11px] text-amber-300/90 text-center mt-3 hidden"></p>
+      <p class="text-[11px] text-[var(--sub)] text-center mt-3">Your design &amp; selections are emailed to our studio to finalize.</p>
+    </section>
+  </div>
+</main>
+
+<footer class="border-t border-[var(--line)]">
+  <div class="max-w-7xl mx-auto px-5 py-6 flex flex-wrap items-center justify-between gap-3 text-xs text-[var(--sub)]">
+    <span>© 2024 DecalForge — Custom vinyl, made to order.</span>
+    <a href="https://developer.puter.com" target="_blank" class="hover:text-[var(--ink)]">Powered By Chaos Bunnies @SoftBite.Studio</a>
+  </div>
+</footer>
+
+<!-- Order modal -->
+<div id="orderModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+  <div class="panel rounded-2xl w-full max-w-md p-6 fade-in">
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<style>
+.step-badge{ width:26px; height:26px; border-radius:8px; background:var(--panel2); border:1px solid var(--line); display:grid; place-items:center; font-family:'Space Grotesk'; font-weight:700; font-size:13px; color:var(--accent); }
+</style>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
