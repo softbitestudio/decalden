@@ -4,10 +4,11 @@
 
 > *Decals made to order! Simple as ordering a pizza! 🍕✨*
 
-[![Soft Bite Studio](https://img.shields.io/badge/Brand-Soft%20Bite%20Studio-purple?style=for-the-badge)](https://softbite.studio)
+[![DecalDen-dot-xyz](https://img.shields.io/badge/DecalDen-xyz-purple?style=for-the-badge)](https://DecalDen.xyz)
+[![Soft Bite Studio](https://img.shields.io/badge/Brand-Soft%20Bite%20Studio-purple?style=for-the-badge)](https://softbitestudio.com)
+[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg?style=for-the-badge)](https://creativecommons.org/licenses/by-nc/4.0/)
 [![Status](https://img.shields.io/badge/Status-Active%20Development-success?style=for-the-badge)]()
 
-[![DecalDen-dot-xyz](https://img.shields.io/badge/DecalDen-xyz-purple?style=for-the-badge)](https://DecalDen.xyz)
 </div>
 
 ---
@@ -38,46 +39,45 @@ Built with love and precision for creators, makers, and sticker enthusiasts alik
 
 ---
 
-## 🚀 Quick Start
+## 💡 Usage Workflow
 
-To get a local copy up and running, follow these simple steps.
+1. **Upload:** Drag and drop your artwork file into the DecalDen canvas.
+2. **Configure:** Adjust the border offset, check thickness parameters, and select your preferred vinyl color/material.
+3. **Review:** Check out the live preview and instant pricing breakdown.
+4. **Submit:** Send off your order config with shipping preferences selected!
 
-### Prerequisites
+---
 
-Make sure you have a modern web browser and a local development server (like Live Server for VS Code) installed.
+## 🗺️ Roadmap
 
-### Installation
+- [x] Core image-to-vector canvas conversion logic
+- [x] Dynamic sizing and material pricing matrix
+- [ ] Advanced weeding-line preview simulator
+- [ ] Multi-file batch sheet layout generator
 
-```bash
-git clone https://github.com/softbitestudio/decalden.git
-cd decalden
-```
+---
 
-# Open index.html or launch your local dev server
+## 👥 Contributing
 
-💡 Usage Workflow
-Upload: Drag and drop your artwork file into the DecalDen canvas.
-Configure: Adjust the border offset, check thickness parameters, and select your preferred vinyl color/material.
-Review: Check out the live preview and instant pricing breakdown.
-Submit: Send off your order config with shipping preferences selected!
-🗺️ Roadmap
-[x] Core image-to-vector canvas conversion logic
-[x] Dynamic sizing and material pricing matrix
-[ ] Advanced weeding-line preview simulator
-[ ] Multi-file batch sheet layout generator
-👥 Contributing
-Contributions, issues, and feature requests are welcome! Feel free to check the issues page.
-Fork the Project
-Create your Feature Branch (git checkout -b feature/AmazingDecalFeature)
-Commit your Changes (git commit -m 'Add some AmazingDecalFeature')
-Push to the Branch (git push origin feature/AmazingDecalFeature)
-Open a Pull Request
-📄 License & Credits (CC BY-NC)[https://creativecommons.org/licenses/by-nc/4.0]
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/softbitestudio/decalden/issues).
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingDecalFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingDecalFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingDecalFeature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License & Credits
+
+Distributed under the [Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/) license.
 
 <div align="center">
 
-Created with 💜 by Bunny Reckless // Soft Bite Studio
+Created with 💜 by Bunny Reckless // Soft Bite Studio  
 
-📧 bunrec@softbite.studio
+📧 `bunrec@softbite.studio`  
 © 2026 Soft Bite Studio. All rights reserved.
+
 </div>
