@@ -50,6 +50,6 @@ Make sure you have a modern web browser and a local development server (like Liv
 ```bash
 git clone https://github.com/softbitestudio/decalden.git
 cd decalden
-`
+```
 
 # Open index.html or launch your local dev server
