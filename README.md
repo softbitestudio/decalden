@@ -54,3 +54,30 @@ cd decalden
 ```
 
 # Open index.html or launch your local dev server
+
+💡 Usage Workflow
+Upload: Drag and drop your artwork file into the DecalDen canvas.
+Configure: Adjust the border offset, check thickness parameters, and select your preferred vinyl color/material.
+Review: Check out the live preview and instant pricing breakdown.
+Submit: Send off your order config with shipping preferences selected!
+🗺️ Roadmap
+[x] Core image-to-vector canvas conversion logic
+[x] Dynamic sizing and material pricing matrix
+[ ] Advanced weeding-line preview simulator
+[ ] Multi-file batch sheet layout generator
+👥 Contributing
+Contributions, issues, and feature requests are welcome! Feel free to check the issues page.
+Fork the Project
+Create your Feature Branch (git checkout -b feature/AmazingDecalFeature)
+Commit your Changes (git commit -m 'Add some AmazingDecalFeature')
+Push to the Branch (git push origin feature/AmazingDecalFeature)
+Open a Pull Request
+📄 License & Credits (CC BY-NC)[https://creativecommons.org/licenses/by-nc/4.0]
+
+<div align="center">
+
+Created with 💜 by Bunny Reckless // Soft Bite Studio
+
+📧 bunrec@softbite.studio
+© 2026 Soft Bite Studio. All rights reserved.
+</div>
