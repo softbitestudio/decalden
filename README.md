@@ -6,7 +6,7 @@
 
 [![Soft Bite Studio](https://img.shields.io/badge/Brand-Soft%20Bite%20Studio-purple?style=for-the-badge)](https://softbite.studio)
 [![Status](https://img.shields.io/badge/Status-Active%20Development-success?style=for-the-badge)]()
-[![App](https://DecalDen.xyz)]
+[![DecalDen.xyz](https://DecalDen.xyz)]()
 </div>
 
 ---
