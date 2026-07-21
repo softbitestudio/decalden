@@ -5,7 +5,6 @@
 > *Decals made to order! Simple as ordering a pizza! 🍕✨*
 
 [![Soft Bite Studio](https://img.shields.io/badge/Brand-Soft%20Bite%20Studio-purple?style=for-the-badge)](https://softbite.studio)
-[![© SoftBite.Studio](https://softbite.studio#copyright)
 [![Status](https://img.shields.io/badge/Status-Active%20Development-success?style=for-the-badge)]()
 
 </div>
