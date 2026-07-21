@@ -48,10 +48,8 @@ Make sure you have a modern web browser and a local development server (like Liv
 ### Installation
 
 ```bash
-# Clone the repository
-git clone [https://github.com/softbitestudio/decalden.git](https://github.com/softbitestudio/decalden.git)
-
-# Navigate into the project directory
+git clone https://github.com/softbitestudio/decalden.git
 cd decalden
+`
 
 # Open index.html or launch your local dev server
