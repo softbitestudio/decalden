@@ -30,7 +30,7 @@ const SHIPPING = [
 /* ---------------- State ---------------- */
 const state = {
   file:null, imgName:null, imageEl:null,
-  threshold:128, invert:false,
+  threshold:128, invert:false, showWeeding:false,
   vinyl:null, color:null,
   width:4, height:4, qty:1, shape:SHAPES[0],
   shipping:SHIPPING[0],
@@ -164,6 +164,11 @@ $('width').addEventListener('input',e=>{ state.width=+e.target.value; $('wVal').
 $('height').addEventListener('input',e=>{ state.height=+e.target.value; $('hVal').textContent=e.target.value; render(); });
 $('qty').addEventListener('input',e=>{ state.qty=+e.target.value; $('qVal').textContent=e.target.value; render(); });
 
+// Make sure to add <input type="checkbox" id="weedingToggle"> to your HTML controls area
+if ($('weedingToggle')) {
+  $('weedingToggle').addEventListener('change',e=>{ state.showWeeding=e.target.checked; render(); });
+}
+
 /* ---------------- Render mockup + B&W conversion ---------------- */
 function render(){
   drawMock();
@@ -220,6 +225,9 @@ function drawMock(){
   // finish sheen overlay based on vinyl
   ctx.drawImage(off,ox,oy,w,h);
   applyFinishEffect(off,ox,oy,w,h,vinylColor);
+  
+  // apply weeding lines overlay
+  applyWeedingLines(ox, oy, w, h, off);
 }
 
 function pickInkColor(){
@@ -273,6 +281,47 @@ function applyFinishEffect(off,ox,oy,w,h,color){
     g.addColorStop(0,'#ffffff'); g.addColorStop(1,'rgba(255,255,255,0)');
     ctx.fillStyle=g; ctx.fillRect(ox,oy,w,h*0.5);
   }
+  ctx.restore();
+}
+
+function applyWeedingLines(ox, oy, w, h, decalOffscreenCanvas) {
+  if (!state.showWeeding) return;
+
+  const tempCanvas = document.createElement('canvas');
+  tempCanvas.width = mockCanvas.width;
+  tempCanvas.height = mockCanvas.height;
+  const tCtx = tempCanvas.getContext('2d');
+
+  tCtx.strokeStyle = '#FF1493'; 
+  tCtx.lineWidth = 1;
+  tCtx.beginPath();
+  
+  const gridSize = 45; 
+  
+  for (let x = ox; x < ox + w; x += gridSize) {
+    tCtx.moveTo(x, oy);
+    tCtx.lineTo(x, oy + h);
+  }
+  for (let y = oy; y < oy + h; y += gridSize) {
+    tCtx.moveTo(ox, y);
+    tCtx.lineTo(ox + w, y);
+  }
+  
+  tCtx.rect(ox, oy, w, h);
+  tCtx.stroke();
+
+  tCtx.globalCompositeOperation = 'destination-out';
+  tCtx.shadowColor = 'black';
+  tCtx.shadowBlur = 10; 
+  
+  tCtx.drawImage(decalOffscreenCanvas, ox, oy, w, h);
+  tCtx.drawImage(decalOffscreenCanvas, ox, oy, w, h);
+  tCtx.drawImage(decalOffscreenCanvas, ox, oy, w, h);
+
+  ctx.save();
+  ctx.globalCompositeOperation = 'source-over';
+  ctx.globalAlpha = 0.8; 
+  ctx.drawImage(tempCanvas, 0, 0);
   ctx.restore();
 }
 
@@ -332,6 +381,7 @@ $('authBtn').addEventListener('click',async()=>{
   if(signedIn){ await puter.auth.signOut(); await refreshAuth(); }
   else { try{ await puter.auth.signIn(); }catch(e){} await refreshAuth(); }
 });
+
 
 /* ---------------- Purchase ---------------- */
 const modal=$('orderModal');
@@ -411,4 +461,103 @@ function buildOrderSummary(p){
     vinyl: state.vinyl.name,
     color: state.vinyl.hasColor ? state.color : '—',
     finish: state.vinyl.desc,
-    sh
+    shape: state.shape.name,
+    size: `${state.width}" × ${state.height}"`,
+    area: p.area.toFixed(1)+' in²',
+    qty: state.qty,
+    unit: '$'+p.unitDisc.toFixed(2),
+    discount: p.disc>0?Math.round(p.disc*100)+'%':'none',
+    subtotal: '$'+p.subtotal.toFixed(2),
+    shipMethod: state.shipping.name+' — '+(p.ship>0?'$'+p.ship.toFixed(2):'Free'),
+    shipTracking: (state.shipping.id.startsWith('track'))?'Yes':'No',
+    total: '$'+p.total.toFixed(2),
+    address: formatAddress(),
+    image: state.imgName||'uploaded-image',
+  };
+}
+
+function formatAddress(){
+  const a=state.address;
+  return [a.name, a.line1, a.line2, [a.city, a.state, a.zip].filter(Boolean).join(', '), a.country]
+    .filter(Boolean).join('\n');
+}
+
+function buildMailto(o, mockLink, artLink){
+  const subject=`New Decal Order ${o.ref} — ${o.vinyl}`;
+  const lines=[
+    'NEW CUSTOM DECAL ORDER',
+    '======================',
+    `Order ref:      ${o.ref}`,
+    `Customer:       ${o.customer}`,
+    `Customer email: ${o.email}`,
+    '',
+    'SPECIFICATIONS',
+    '--------------',
+    `Vinyl type:     ${o.vinyl}`,
+    `Finish:         ${o.finish}`,
+    `Color:          ${o.color}`,
+    `Cut shape:      ${o.shape}`,
+    `Size:           ${o.size}  (${o.area})`,
+    `Quantity:       ${o.qty}`,
+    '',
+    'SHIPPING',
+    '--------',
+    `Method:         ${o.shipMethod}`,
+    `Tracking:       ${o.shipTracking}`,
+    `Ship to:`,
+    o.address.split('\n').map(l=>'  '+l).join('\n'),
+    '',
+    'PRICING',
+    '-------',
+    `Unit price:     ${o.unit}`,
+    `Volume disc.:   ${o.discount}`,
+    `Subtotal:       ${o.subtotal}`,
+    `Shipping:       ${o.shipMethod}`,
+    `ESTIMATED TOTAL:${o.total}`,
+    '',
+    'ARTWORK (auto-converted to black & white)',
+    '-----------------------------------------',
+    `Original file:  ${o.image}`,
+    `Decal art PNG:  ${artLink}`,
+    `Mockup preview: ${mockLink}`,
+    '',
+    'Please confirm this order and reply with payment/next steps.',
+  ];
+  return `mailto:${STUDIO_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
+}
+
+function showOrderReady(o, mockLink, artLink, mailto){
+  openModal(`
+    <div class="flex items-center gap-3 mb-4">
+      <div class="w-11 h-11 rounded-full btn-accent grid place-items-center"><i data-lucide="check" class="w-6 h-6"></i></div>
+      <div><h3 class="display font-semibold text-lg leading-tight">Order ready to send</h3>
+      <p class="text-xs text-[var(--sub)]">Ref ${o.ref}</p></div>
+    </div>
+    <div class="tag rounded-xl p-3.5 text-sm space-y-1.5 mb-4">
+      <div class="flex justify-between"><span class="text-[var(--sub)]">Vinyl</span><span>${o.vinyl}</span></div>
+      <div class="flex justify-between"><span class="text-[var(--sub)]">Color</span><span>${o.color}</span></div>
+      <div class="flex justify-between"><span class="text-[var(--sub)]">Size / qty</span><span>${o.size} · ×${o.qty}</span></div>
+      <div class="flex justify-between"><span class="text-[var(--sub)]">Shipping</span><span class="text-right">${o.shipMethod}</span></div>
+      <div class="flex justify-between font-semibold text-[var(--accent)]"><span>Total</span><span>${o.total}</span></div>
+    </div>
+    <p class="text-sm text-[var(--sub)] mb-4">Your design was uploaded. Click below to open your email app with the full order pre-filled to <span class="text-[var(--ink)]">${STUDIO_EMAIL}</span> — just hit send.</p>
+    <a href="${mailto}" id="sendMail" class="btn-accent w-full py-3 rounded-xl font-semibold flex items-center justify-center gap-2 mb-2">
+      <i data-lucide="mail" class="w-4.5 h-4.5"></i> Open email to send order
+    </a>
+    <button id="copyDetails" class="w-full py-2.5 rounded-xl border border-[var(--line)] text-sm flex items-center justify-center gap-2 hover:bg-[var(--panel2)]">
+      <i data-lucide="copy" class="w-4 h-4"></i> Copy order details
+    </button>
+    <button onclick="document.getElementById('orderModal').classList.add('hidden')" class="w-full mt-2 py-2 text-sm text-[var(--sub)] hover:text-[var(--ink)]">Close</button>
+  `);
+  createIcons({icons});
+  $('copyDetails').addEventListener('click',()=>{
+    const txt=decodeURIComponent(mailto.split('body=')[1]);
+    navigator.clipboard.writeText(txt).then(()=>{
+      $('copyDetails').innerHTML='<i data-lucide="check" class="w-4 h-4"></i> Copied!'; createIcons({icons});
+    });
+  });
+}
+
+/* ---------------- Init ---------------- */
+buildVinyls(); buildShapes(); buildShipping(); bindAddress(); updatePrice(); refreshAuth();
+createIcons({icons});
