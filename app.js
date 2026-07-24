@@ -30,7 +30,7 @@ const SHIPPING = [
 /* ---------------- State ---------------- */
 const state = {
   file:null, imgName:null, imageEl:null,
-  threshold:128, invert:false, showWeeding:false,
+  threshold:128, invert:false,
   vinyl:null, color:null,
   width:4, height:4, qty:1, shape:SHAPES[0],
   shipping:SHIPPING[0],
@@ -164,11 +164,6 @@ $('width').addEventListener('input',e=>{ state.width=+e.target.value; $('wVal').
 $('height').addEventListener('input',e=>{ state.height=+e.target.value; $('hVal').textContent=e.target.value; render(); });
 $('qty').addEventListener('input',e=>{ state.qty=+e.target.value; $('qVal').textContent=e.target.value; render(); });
 
-// Make sure to add <input type="checkbox" id="weedingToggle"> to your HTML controls area
-if ($('weedingToggle')) {
-  $('weedingToggle').addEventListener('change',e=>{ state.showWeeding=e.target.checked; render(); });
-}
-
 /* ---------------- Render mockup + B&W conversion ---------------- */
 function render(){
   drawMock();
@@ -226,7 +221,7 @@ function drawMock(){
   ctx.drawImage(off,ox,oy,w,h);
   applyFinishEffect(off,ox,oy,w,h,vinylColor);
   
-  // apply weeding lines overlay
+  // apply weeding lines overlay (now mandatory)
   applyWeedingLines(ox, oy, w, h, off);
 }
 
@@ -285,8 +280,6 @@ function applyFinishEffect(off,ox,oy,w,h,color){
 }
 
 function applyWeedingLines(ox, oy, w, h, decalOffscreenCanvas) {
-  if (!state.showWeeding) return;
-
   const tempCanvas = document.createElement('canvas');
   tempCanvas.width = mockCanvas.width;
   tempCanvas.height = mockCanvas.height;
@@ -327,7 +320,6 @@ function applyWeedingLines(ox, oy, w, h, decalOffscreenCanvas) {
 
 function roundRect(x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
 function hexToRgb(hex){ hex=hex.replace('#',''); if(hex.length===3) hex=hex.split('').map(c=>c+c).join(''); const n=parseInt(hex,16); return {r:(n>>16)&255,g:(n>>8)&255,b:n&255}; }
-
 /* ---------------- Pricing ---------------- */
 function computePrice(){
   if(!state.vinyl) return null;
@@ -381,7 +373,6 @@ $('authBtn').addEventListener('click',async()=>{
   if(signedIn){ await puter.auth.signOut(); await refreshAuth(); }
   else { try{ await puter.auth.signIn(); }catch(e){} await refreshAuth(); }
 });
-
 
 /* ---------------- Purchase ---------------- */
 const modal=$('orderModal');
