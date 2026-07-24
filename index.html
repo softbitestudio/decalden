@@ -124,15 +124,33 @@ window.addEventListener('error',function(e){var t=e&&e.target;if(t&&t!==window&&
 </div>
 
           <label class="flex items-center gap-2 text-sm cursor-pointer">
-            <input type="checkbox" id="invert" class="accent-[var(--accent)] w-4 h-4" /> Invert
-          </label>
+
           <button id="removeImg" class="text-sm text-[var(--sub)] hover:text-red-400 flex items-center gap-1 ml-auto">
             <i data-lucide="trash-2" class="w-4 h-4"></i> Remove
           </button>
         </div>
       </div>
     </section>
-
+  <!-- RIGHT: Mockup + price (sticky) -->
+  <div class="lg:sticky lg:top-24 h-max space-y-4">
+    <section class="panel rounded-2xl overflow-hidden">
+      <div class="px-5 py-3 border-b border-[var(--line)] flex items-center justify-between">
+        <span class="text-sm font-semibold flex items-center gap-2"><i data-lucide="eye" class="w-4 h-4 text-[var(--accent)]"></i> Behold~♪</span>
+        <span id="vinylTag" class="tag text-[11px] px-2 py-1 rounded-full text-[var(--sub)]">No vinyl</span>
+      </div>
+      <div class="checker p-6 grid place-items-center min-h-[300px]">
+        <div id="mockWrap" class="grid place-items-center text-center">
+          <div id="mockEmpty" class="text-[var(--sub)]">
+            <i data-lucide="sparkles" class="w-10 h-10 mx-auto mb-2 opacity-50"></i>
+            <p class="text-sm">Upload an image to<br>preview your decal</p>
+          </div>
+          <canvas id="mockCanvas" class="hidden max-w-full rounded-md" width="600" height="600"></canvas>
+        </div>
+      </div>
+      <div class="px-5 py-3 border-t border-[var(--line)] text-[11px] text-[var(--sub)] flex items-center gap-2">
+        <i data-lucide="info" class="w-3.5 h-3.5"></i> Image auto-converted to black &amp; white for die-cut.
+      </div>
+    </section>
     <!-- Step 2: Vinyl -->
     <section class="panel rounded-2xl p-5">
       <div class="flex items-center gap-2 mb-4">
@@ -196,26 +214,7 @@ window.addEventListener('error',function(e){var t=e&&e.target;if(t&&t!==window&&
     </section>
   </div>
 
-  <!-- RIGHT: Mockup + price (sticky) -->
-  <div class="lg:sticky lg:top-24 h-max space-y-4">
-    <section class="panel rounded-2xl overflow-hidden">
-      <div class="px-5 py-3 border-b border-[var(--line)] flex items-center justify-between">
-        <span class="text-sm font-semibold flex items-center gap-2"><i data-lucide="eye" class="w-4 h-4 text-[var(--accent)]"></i> Behold~♪</span>
-        <span id="vinylTag" class="tag text-[11px] px-2 py-1 rounded-full text-[var(--sub)]">No vinyl</span>
-      </div>
-      <div class="checker p-6 grid place-items-center min-h-[300px]">
-        <div id="mockWrap" class="grid place-items-center text-center">
-          <div id="mockEmpty" class="text-[var(--sub)]">
-            <i data-lucide="sparkles" class="w-10 h-10 mx-auto mb-2 opacity-50"></i>
-            <p class="text-sm">Upload an image to<br>preview your decal</p>
-          </div>
-          <canvas id="mockCanvas" class="hidden max-w-full rounded-md" width="600" height="600"></canvas>
-        </div>
-      </div>
-      <div class="px-5 py-3 border-t border-[var(--line)] text-[11px] text-[var(--sub)] flex items-center gap-2">
-        <i data-lucide="info" class="w-3.5 h-3.5"></i> Image auto-converted to black &amp; white for die-cut.
-      </div>
-    </section>
+
 
     <section class="panel rounded-2xl p-5">
       <div class="space-y-2 text-sm">
@@ -245,7 +244,7 @@ window.addEventListener('error',function(e){var t=e&&e.target;if(t&&t!==window&&
 
 <footer class="border-t border-[var(--line)]">
   <div class="max-w-7xl mx-auto px-5 py-6 flex flex-wrap items-center justify-between gap-3 text-xs text-[var(--sub)]">
-    <span>© 2024 DecalForge — Custom vinyl, made to order.</span>
+    <span>© 2026 DecalDen — Custom vinyl, made to order.</span>
     <a href="https://developer.puter.com" target="_blank" class="hover:text-[var(--ink)]">Powered By Chaos Bunnies @SoftBite.Studio</a>
   </div>
 </footer>
