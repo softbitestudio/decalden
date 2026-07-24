@@ -108,7 +108,21 @@ window.addEventListener('error',function(e){var t=e&&e.target;if(t&&t!==window&&
           <span id="threshVal" class="text-sm font-mono">128</span>
         </div>
         <input type="range" id="threshold" min="20" max="235" value="128" class="w-full" />
-        <div class="flex items-center gap-4 mt-3">
+     <div class="flex items-center gap-4 mt-3">
+  <label class="flex items-center gap-2 text-sm cursor-pointer">
+    <input type="checkbox" id="invert" class="accent-[var(--accent)] w-4 h-4" /> Invert
+  </label>
+  
+  <!-- New Weeding Lines Toggle -->
+  <label class="flex items-center gap-2 text-sm cursor-pointer">
+    <input type="checkbox" id="weedingToggle" class="accent-[var(--accent)] w-4 h-4" /> Weeding Lines
+  </label>
+
+  <button id="removeImg" class="text-sm text-[var(--sub)] hover:text-red-400 flex items-center gap-1 ml-auto">
+    <i data-lucide="trash-2" class="w-4 h-4"></i> Remove
+  </button>
+</div>
+
           <label class="flex items-center gap-2 text-sm cursor-pointer">
             <input type="checkbox" id="invert" class="accent-[var(--accent)] w-4 h-4" /> Invert
           </label>
