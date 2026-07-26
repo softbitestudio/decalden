@@ -285,7 +285,7 @@ function applyWeedingLines(ox, oy, w, h, decalOffscreenCanvas) {
   tempCanvas.height = mockCanvas.height;
   const tCtx = tempCanvas.getContext('2d');
 
-  tCtx.strokeStyle = '#FF1493'; 
+  tCtx.strokeStyle = '#9ee7f7';
   tCtx.lineWidth = 1;
   tCtx.beginPath();
   
@@ -329,7 +329,7 @@ function computePrice(){
   let unit = setup + area*state.vinyl.price*shapeMult;
   unit = Math.max(unit, 3.00);
   // volume discount
-  let disc=0;
+  let disc=10;
   const q=state.qty;
   if(q>=100) disc=0.30; else if(q>=50) disc=0.22; else if(q>=25) disc=0.15; else if(q>=10) disc=0.08;
   const unitDisc = unit*(1-disc);
