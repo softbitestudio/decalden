@@ -1,0 +1,4 @@
+ app.post('/stripe-webhook', express.raw({type: 'application/json'}), async (req   const sig = req.headers['stripe-signature'];   let event; 
+  try {     event = stripe.webhooks.constructEvent(req.body, sig, 'wh_YOUR_WEBHOOK_SECRE   } catch (err) {     console.error(`Webhook Error: ${err.message}`);     return res.status(400).send(`Webhook Error: ${err.message}`);   } 
+  // Handle the event   if (event.type === 'checkout.session.completed') {     const session = event.data.object;     console.log('Payment successful for session:', session.id);     // Fulfill the order: update your database, send confirmation email, etc.     // You can retrieve order_ref from session.metadata.order_ref   } 
+  res.json({ received: true }); }); 
