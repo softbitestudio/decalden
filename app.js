@@ -320,6 +320,7 @@ function applyWeedingLines(ox, oy, w, h, decalOffscreenCanvas) {
 
 function roundRect(x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
 function hexToRgb(hex){ hex=hex.replace('#',''); if(hex.length===3) hex=hex.split('').map(c=>c+c).join(''); const n=parseInt(hex,16); return {r:(n>>16)&255,g:(n>>8)&255,b:n&255}; }
+
 /* ---------------- Pricing ---------------- */
 function computePrice(){
   if(!state.vinyl) return null;
@@ -327,9 +328,9 @@ function computePrice(){
   const shapeMult=state.shape?.mult ?? 1;
   const setup=2.50;
   let unit = setup + area*state.vinyl.price*shapeMult;
-  unit = Math.max(unit, 3.00);
+  unit = Math.max(unit, 4.00);
   // volume discount
-  let disc=10;
+  let disc=0.02;
   const q=state.qty;
   if(q>=100) disc=0.30; else if(q>=50) disc=0.22; else if(q>=25) disc=0.15; else if(q>=10) disc=0.08;
   const unitDisc = unit*(1-disc);
