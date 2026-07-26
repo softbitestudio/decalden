@@ -4,13 +4,13 @@ const STUDIO_EMAIL = 'softbitestudio@gmail.com';
 
 /* ---------------- Vinyl catalog ---------------- */
 const VINYLS = [
-  { id:'glossy',  name:'Glossy Color',       desc:'Vivid, smooth, weatherproof',      icon:'droplet',        price:1.10, hasColor:true,  colors:['#e11d48','#f97316','#facc15','#22c55e','#0ea5e9','#6366f1','#111111','#ffffff'] },
-  { id:'matte',   name:'Matte Color',        desc:'Flat, no-glare finish',            icon:'square',         price:1.25, hasColor:true,  colors:['#b91c1c','#ea580c','#ca8a04','#15803d','#1d4ed8','#4338ca','#111111','#f3f4f6'] },
-  { id:'reflective', name:'Reflective',      desc:'Bounces light at night',           icon:'flashlight',     price:2.40, hasColor:true,  colors:['#e5e7eb','#fde047','#f97316','#ef4444','#38bdf8','#22c55e'] },
-  { id:'glow',    name:'Glow-in-the-Dark',   desc:'Charges in light, glows at night', icon:'moon-star',      price:2.90, hasColor:false, colors:['#c7f9cc'] },
-  { id:'holographic', name:'Holographic',    desc:'Rainbow shift chrome',             icon:'sparkles',       price:2.75, hasColor:false, colors:['#c4b5fd'] },
-  { id:'chrome',  name:'Metallic Chrome',    desc:'Mirror-like metal look',           icon:'gem',            price:2.60, hasColor:true,  colors:['#d4d4d8','#fbbf24','#f43f5e','#60a5fa'] },
-  { id:'clear',   name:'Clear Transfer',     desc:'Transparent background',           icon:'layers',         price:1.40, hasColor:true,  colors:['#111111','#ffffff','#ef4444','#3b82f6'] },
+  { id:'glossy',  name:'Glossy Color',       desc:'Vivid, smooth, weatherproof',      icon:'droplet',        price:0.10, hasColor:true,  colors:['#e11d48','#f97316','#facc15','#22c55e','#0ea5e9','#6366f1','#111111','#ffffff'] },
+  { id:'matte',   name:'Matte Color',        desc:'Flat, no-glare finish',            icon:'square',         price:0.15, hasColor:true,  colors:['#b91c1c','#ea580c','#ca8a04','#15803d','#1d4ed8','#4338ca','#111111','#f3f4f6'] },
+  { id:'reflective', name:'Reflective',      desc:'Bounces light at night',           icon:'flashlight',     price:0.40, hasColor:true,  colors:['#ffffff','orange','#000000'] },
+  { id:'glow',    name:'Glow-in-the-Dark',   desc:'Charges in light, glows at night', icon:'moon-star',      price:0.25, hasColor:false, colors:['#c7f9cc'] },
+  { id:'holographic', name:'Holographic',    desc:'Rainbow shift chrome',             icon:'sparkles',       price:0.20, hasColor:false, colors:['#c4b5fd'] },
+  { id:'chrome',  name:'Metallic Chrome',    desc:'Mirror-like metal look',           icon:'gem',            price:0.25, hasColor:true,  colors:['#d4d4d8','#fbbf24','#f43f5e','#60a5fa'] },
+  { id:'hologlow', name:'Holo/Glow',         desc:'Holographic + glow combo',          icon:'sparkles',       price:0.40, hasColor:false, colors:['#c7f9cc'] },
 ];
 
 const SHAPES = [
