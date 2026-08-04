@@ -242,7 +242,7 @@
   <div class="max-w-7xl mx-auto px-5 py-6 flex flex-wrap items-center justify-between gap-3 text-xs text-[var(--sub)]">
     <span>© 2026 DecalDen — Custom Cut Vinyl, made to order.</span>
     <a href="/policy.html" class="ml-4 hover:text-[var(--ink)] underline underline-offset-4">Policies</a>
-    <a href="https://developer.puter.com" target="_blank" class="hover:text-[var(--ink)]">Powered By Chaos Bunnies @SoftBite.Studio</a>
+    <a href="https://softbite.studio" target="_blank" rel="noopener" class="hover:text-[var(--ink)]">Powered by Soft Bite Studio</a>
   </div>
 </footer>
 
@@ -257,6 +257,11 @@
 .step-badge{ width:26px; height:26px; border-radius:8px; background:var(--panel2); border:1px solid var(--line); display:grid; place-items:center; font-family:'Space Grotesk'; font-weight:700; font-size:13px; color:var(--accent); }
 </style>
 
+<script>
+  // Supabase publishable key: safe for browser use; RLS protects data.
+  window.DECALDEN_SUPABASE_URL = 'https://fdubhpdririsxrnpkzpt.supabase.co';
+  window.DECALDEN_SUPABASE_KEY = 'sb_publishable_qwo7eJAfn6Qsi1HcoqTtAA_K9ic8AmA';
+</script>
 <script type="module" src="app.js"></script>
 </body>
 </html>
