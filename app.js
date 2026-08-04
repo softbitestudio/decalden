@@ -1,16 +1,25 @@
 import { createIcons, icons } from 'https://cdn.jsdelivr.net/npm/lucide@latest/+esm';
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+const SUPABASE_URL = window.DECALDEN_SUPABASE_URL;
+const SUPABASE_KEY = window.DECALDEN_SUPABASE_KEY;
+const supabase = (SUPABASE_URL && SUPABASE_KEY) ? createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 
 const STUDIO_EMAIL = 'softbitestudio@gmail.com';
 
 /* ---------------- Vinyl catalog ---------------- */
 const VINYLS = [
-  { id:'glossy',  name:'Glossy Color',       desc:'Vivid, smooth, weatherproof',      icon:'droplet',        price:0.10, hasColor:true,  colors:['#e11d48','#f97316','#facc15','#22c55e','#0ea5e9','#6366f1','#111111','#ffffff'] },
-  { id:'matte',   name:'Matte Color',        desc:'Flat, no-glare finish',            icon:'square',         price:0.15, hasColor:true,  colors:['#b91c1c','#ea580c','#ca8a04','#15803d','#1d4ed8','#4338ca','#111111','#f3f4f6'] },
-  { id:'reflective', name:'Reflective',      desc:'Bounces light at night',           icon:'flashlight',     price:0.40, hasColor:true,  colors:['#ffffff','orange','#000000'] },
-  { id:'glow',    name:'Glow-in-the-Dark',   desc:'Charges in light, glows at night', icon:'moon-star',      price:0.25, hasColor:false, colors:['#c7f9cc'] },
-  { id:'holographic', name:'Holographic',    desc:'Rainbow shift chrome',             icon:'sparkles',       price:0.20, hasColor:false, colors:['#c4b5fd'] },
-  { id:'chrome',  name:'Metallic Chrome',    desc:'Mirror-like metal look',           icon:'gem',            price:0.25, hasColor:true,  colors:['#d4d4d8','#fbbf24','#f43f5e','#60a5fa'] },
-  { id:'hologlow', name:'Holo/Glow',         desc:'Holographic + glow combo',          icon:'sparkles',       price:0.40, hasColor:false, colors:['#c7f9cc'] },
+  { id:'glossy', name:'Glossy Color', desc:'Vivid, smooth, weatherproof', icon:'droplet', price:0.10, hasColor:true, specialOrder:false,
+    colors:['#111111','#FAFAFA','#D6208A','#F44FA0','#F2BAD3','#B31E30','#6B1521','#EF5A24','#EA6420','#A98D18','#E8A72E','#F3C60E','#E9F05B','#6CC24A','#2E9E4C','#1F5C3D','#0F7B85','#2FB7B1','#82E4D7','#5AB9DA','#1E5FD0','#17225E','#B18ECB','#5A2D8C','#3B2824','#EADFC4','#B8BCC2','#D3D6DB','#3E4149'] },
+  { id:'matte', name:'Matte Color', desc:'Flat, no-glare finish', icon:'square', price:0.15, hasColor:true, specialOrder:false,
+    colors:['#111111','#FAFAFA','#D6208A','#F44FA0','#B31E30','#6B1521','#EF5A24','#EA6420','#F3C60E','#E9F05B','#6CC24A','#2E9E4C','#1F5C3D','#0F7B85','#2FB7B1','#82E4D7','#1E5FD0','#17225E','#B18ECB','#5A2D8C','#3B2824','#EADFC4','#D3D6DB'] },
+  { id:'chrome', name:'Metallic Chrome', desc:'Mirror-like metallic finish', icon:'gem', price:0.25, hasColor:true, specialOrder:false, colors:['#B8BCC2','#A98D18'] },
+  { id:'holographic', name:'Holographic', desc:'Rainbow-shift finish · special order', icon:'sparkles', price:0.20, hasColor:false, specialOrder:true, colors:['#B98CFF'] },
+  { id:'holographic-black', name:'Holographic Black', desc:'Black holo finish · special order', icon:'sparkles', price:0.25, hasColor:false, specialOrder:true, colors:['#17131d'] },
+  { id:'glow', name:'Glow-in-the-Dark', desc:'Charges in light · special order', icon:'moon-star', price:0.25, hasColor:false, specialOrder:true, colors:['#C7F9CC'] },
+  { id:'hologlow', name:'Holo/Glow', desc:'Holographic + glow · special order', icon:'sparkles', price:0.40, hasColor:false, specialOrder:true, colors:['#C7F9CC'] },
+  { id:'reflective-white', name:'Reflective White', desc:'Reflective white · special order', icon:'flashlight', price:0.40, hasColor:false, specialOrder:true, colors:['#FAFAFA'] },
+  { id:'reflective-black', name:'Reflective Black', desc:'Reflective black · special order', icon:'flashlight', price:0.40, hasColor:false, specialOrder:true, colors:['#111111'] },
 ];
 
 const SHAPES = [
@@ -50,7 +59,7 @@ function buildVinyls(){
       <div class="w-9 h-9 rounded-lg bg-[var(--panel2)] grid place-items-center mb-2.5">
         <i data-lucide="${v.icon}" class="w-5 h-5 text-[var(--accent)]"></i>
       </div>
-      <div class="font-semibold text-sm">${v.name}</div>
+      <div class="font-semibold text-sm">${v.name} ${v.specialOrder ? '<span class=\"ml-1 text-[10px] text-[var(--accent)]\">SPECIAL ORDER</span>' : ''}</div>
       <div class="text-[11px] text-[var(--sub)] mt-0.5">${v.desc}</div>
       <div class="text-[11px] font-mono text-[var(--sub)] mt-2">$${v.price.toFixed(2)}/in²</div>
     </button>`).join('');
@@ -227,9 +236,11 @@ function drawMock(){
 
 function pickInkColor(){
   if(!state.vinyl) return '#111111';
-  if(state.vinyl.id==='glow') return '#7CFC00';
+  if(state.vinyl.id==='glow' || state.vinyl.id==='hologlow') return '#7CFC00';
   if(state.vinyl.id==='holographic') return '#b98cff';
-  if(state.vinyl.id==='reflective' && (!state.color)) return '#e5e7eb';
+  if(state.vinyl.id==='holographic-black') return '#17131d';
+  if(state.vinyl.id==='reflective-white') return '#FAFAFA';
+  if(state.vinyl.id==='reflective-black') return '#111111';
   return state.color || '#111111';
 }
 
@@ -249,10 +260,10 @@ function applyFinishEffect(off,ox,oy,w,h,color){
   const id=state.vinyl.id;
   ctx.save();
   // clip to decal shape (the drawn pixels)
-  if(id==='glow'){
+  if(id==='glow' || id==='hologlow'){
     ctx.globalCompositeOperation='lighter';
     ctx.shadowColor='#7CFC00'; ctx.shadowBlur=18; ctx.drawImage(off,ox,oy,w,h); ctx.shadowBlur=0;
-  } else if(id==='reflective'){
+  } else if(id==='reflective' || id==='reflective-white' || id==='reflective-black'){
     ctx.globalAlpha=0.25; ctx.globalCompositeOperation='screen';
     const g=ctx.createLinearGradient(ox,oy,ox+w,oy+h);
     g.addColorStop(0,'#ffffff'); g.addColorStop(0.5,'rgba(255,255,255,0)'); g.addColorStop(1,'#ffffff');
@@ -260,7 +271,7 @@ function applyFinishEffect(off,ox,oy,w,h,color){
     // mask by decal
     ctx.globalCompositeOperation='source-atop';
     ctx.fillRect(ox,oy,w,h);
-  } else if(id==='holographic'){
+  } else if(id==='holographic' || id==='holographic-black'){
     ctx.globalAlpha=0.45; ctx.globalCompositeOperation='source-atop';
     const g=ctx.createLinearGradient(ox,oy,ox+w,oy+h);
     ['#ff2d55','#ffcc00','#34c759','#00c7be','#5856d6','#ff2d55'].forEach((c,i,a)=>g.addColorStop(i/(a.length-1),c));
@@ -354,26 +365,25 @@ function updatePrice(){
   $('total').textContent = '$'+p.total.toFixed(2);
 }
 
-/* ---------------- Auth ---------------- */
+/* ---------------- Supabase Auth ---------------- */
 let signedIn=false, currentUser=null;
 async function refreshAuth(){
-  try{ signedIn = puter.auth.isSignedIn(); }catch(e){ signedIn=false; }
-  if(signedIn){
-    try{ currentUser=await puter.auth.getUser(); }catch(e){ currentUser=null; }
-    $('authBtnText').textContent='Sign out';
-    $('authStatus').textContent = currentUser? ('Signed in as '+currentUser.username) : 'Signed in';
-    $('authStatus').classList.remove('hidden');
-  } else {
-    $('authBtnText').textContent='Sign in';
-    $('authStatus').classList.add('hidden');
-    currentUser=null;
-  }
-  render();
+  if(!supabase){ signedIn=false; currentUser=null; }
+  else { const { data:{ user } } = await supabase.auth.getUser(); currentUser=user; signedIn=!!user; }
+  $('authBtnText').textContent=signedIn?'Sign out':'Sign in';
+  $('authStatus').textContent=signedIn ? ('Signed in as '+(currentUser.email||'customer')) : '';
+  $('authStatus').classList.toggle('hidden',!signedIn); render();
 }
 $('authBtn').addEventListener('click',async()=>{
-  if(signedIn){ await puter.auth.signOut(); await refreshAuth(); }
-  else { try{ await puter.auth.signIn(); }catch(e){} await refreshAuth(); }
+  if(!supabase){ openModal('<p class=\"text-sm\">Supabase is not configured yet.</p>'); return; }
+  if(signedIn){ await supabase.auth.signOut(); await refreshAuth(); return; }
+  const email=window.prompt('Enter your email for a secure sign-in link:');
+  if(!email) return;
+  const { error }=await supabase.auth.signInWithOtp({email, options:{emailRedirectTo:window.location.href}});
+  if(error) openModal('<p class=\"text-sm text-red-300\">'+error.message+'</p>');
+  else openModal('<p class=\"text-sm\">Check your email for a secure sign-in link.</p>');
 });
+if(supabase) supabase.auth.onAuthStateChange(()=>refreshAuth());
 
 /* ---------------- Purchase ---------------- */
 const modal=$('orderModal');
@@ -384,7 +394,8 @@ $('purchaseBtn').addEventListener('click', onPurchase);
 
 async function onPurchase(){
   if(!state.imageEl || !state.vinyl) return;
-  if(!signedIn){ await puter.auth.signIn(); await refreshAuth(); if(!signedIn) return; }
+  if(!supabase){ openModal('<p class=\"text-sm\">Supabase is not configured yet.</p>'); return; }
+  if(!signedIn){ await refreshAuth(); if(!signedIn){ openModal('<p class=\"text-sm\">Please sign in before placing an order.</p>'); return; } }
 
   const p=computePrice();
   openModal(`
@@ -401,14 +412,18 @@ async function onPurchase(){
     const exportUrl = await buildExportPng();
     // 2. upload both mockup and processed art to cloud
     const stamp=Date.now();
-    const dir='decal-orders';
-    try{ await puter.fs.mkdir(dir,{createMissingParents:true}); }catch(e){}
+    if(!currentUser) throw new Error('Please sign in before uploading an order.');
     const mockBlob = await (await fetch(mockCanvas.toDataURL('image/png'))).blob();
     const artBlob = await (await fetch(exportUrl)).blob();
-    const mockFile = await puter.fs.write(`${dir}/mockup-${stamp}.png`, mockBlob);
-    const artFile  = await puter.fs.write(`${dir}/decal-bw-${stamp}.png`, artBlob);
-    const mockLink = await puter.fs.getReadURL(mockFile.path);
-    const artLink  = await puter.fs.getReadURL(artFile.path);
+    const folder=`${currentUser.id}/${stamp}`;
+    const mockPath=`${folder}/mockup.png`, artPath=`${folder}/decal-bw.png`;
+    const bucket=supabase.storage.from('decal-orders');
+    const up1=await bucket.upload(mockPath,mockBlob,{contentType:'image/png',upsert:false});
+    if(up1.error) throw up1.error;
+    const up2=await bucket.upload(artPath,artBlob,{contentType:'image/png',upsert:false});
+    if(up2.error) throw up2.error;
+    const mockLink=bucket.getPublicUrl(mockPath).data.publicUrl;
+    const artLink=bucket.getPublicUrl(artPath).data.publicUrl;
 
     const order = buildOrderSummary(p);
     const mailto = buildMailto(order, mockLink, artLink);
