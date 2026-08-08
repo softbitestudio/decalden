@@ -66,12 +66,12 @@
 <section class="max-w-7xl mx-auto px-5 pt-10 pb-6">
   <div class="flex flex-wrap items-end justify-between gap-4">
     <div>
-      <p class="text-[var(--accent)] text-xs font-semibold uppercase tracking-[0.2em] mb-2">Custom cut Vinyl - Turn your OC, logo, saying, drawing into a stencil-like sticker made to last!</p>
+      <p class="text-[var(--accent)] text-xs font-semibold uppercase tracking-[0.2em] mb-2">Custom cut Vinyl - Turn your OC, logo, quote, drawing into a stencil-like sticker made to last!</p>
 
       <h1 class="display text-3xl sm:text-4xl font-bold tracking-tight max-w-xl">
 Decal Den
 </h1>
-      <p class="text-[var(--sub)] mt-3 max-w-lg">Upload your artwork, Pick your vinyl, and get an Instant Mockup with a live price estimate. We'll handle the rest. </p>
+      <p class="text-[var(--sub)] mt-3 max-w-lg">Upload your artwork, Choose your vinyl, and receive an Instant Mockup with a live price estimate. We'll handle the rest. </p>
     </div>
     <div class="flex gap-6 text-center">
       <div><div class="display text-2xl font-bold">7+</div><div class="text-[11px] text-[var(--sub)] uppercase tracking-wider">Vinyl types</div></div>
@@ -123,6 +123,7 @@ Decal Den
         </div>
       </div>
     </section>
+
   <!-- RIGHT: Mockup + price (sticky) -->
   <div class="lg:sticky lg:top-24 h-max space-y-4">
     <section class="panel rounded-2xl overflow-hidden">
@@ -166,15 +167,15 @@ Decal Den
       <div class="grid sm:grid-cols-3 gap-4">
         <div>
           <div class="flex justify-between mb-2"><label class="text-sm text-[var(--sub)]">Width <span class="text-[10px] text-[var(--sub)]">(max 8.5")</span></label><span class="text-sm font-mono"><span id="wVal">4</span>"</span></div>
-          <input type="range" id="width" min="1" max="17" value="4" step="0.5" class="w-full" />
+          <input type="range" id="width" min="1" max="8.5" value="4" step="0.5" class="w-full" />
         </div>
         <div>
           <div class="flex justify-between mb-2"><label class="text-sm text-[var(--sub)]">Height</label><span class="text-sm font-mono"><span id="hVal">4</span>"</span></div>
-          <input type="range" id="height" min="1" max="24" value="4" step="0.5" class="w-full" />
+          <input type="range" id="height" min="1" max="12" value="4" step="0.5" class="w-full" />
         </div>
         <div>
           <div class="flex justify-between mb-2"><label class="text-sm text-[var(--sub)]">Quantity</label><span class="text-sm font-mono" id="qVal">1</span></div>
-          <input type="range" id="qty" min="1" max="10" value="1" class="w-full" />
+          <input type="range" id="qty" min="1" max="8" value="1" class="w-full" />
         </div>
       </div>
       <div class="mt-4">
@@ -208,7 +209,7 @@ Decal Den
   </div>
 
 
-
+<p>*Double-check QUANTITY and verify your selection</p>
     <section class="panel rounded-2xl p-5">
       <div class="space-y-2 text-sm">
         <div class="flex justify-between"><span class="text-[var(--sub)]">Base material</span><span id="pBase" class="font-mono">—</span></div>
@@ -226,7 +227,7 @@ Decal Den
         </div>
         <div id="total" class="display text-3xl font-bold">$0.00</div>
       </div>
-      <button id="purchaseBtn" class="btn-accent w-full mt-5 py-3.5 rounded-xl font-semibold flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+      <button id="purchaseBtn" class="btn-accent w-full mt-5 py-3.5 rounded-xl font-semibold flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-question" disabled>
         <i data-lucide="send" class="w-4.5 h-4.5"></i> Purchase &amp; send order
       </button>
       <p id="purchaseHint" class="text-[11px] text-amber-300/90 text-center mt-3 hidden"></p>
