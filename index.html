@@ -210,6 +210,19 @@ Decal Den
 
 
     <section class="panel rounded-2xl p-5">
+
+<!-- Order modal -->
+<div id="orderModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+  <div class="panel rounded-2xl w-full max-w-md p-6 fade-in">
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<style>
+.step-badge{ width:26px; height:26px; border-radius:8px; background:var(--panel2); border:1px solid var(--line); display:grid; place-items:center; font-family:'Space Grotesk'; font-weight:700; font-size:13px; color:var(--accent); }
+</style>
+
+<script type="module" src="app.js"></script>
       <div class="space-y-2 text-sm">
         <div class="flex justify-between"><span class="text-[var(--sub)]">Base material</span><span id="pBase" class="font-mono">—</span></div>
         <div class="flex justify-between"><span class="text-[var(--sub)]">Area &amp; size</span><span id="pArea" class="font-mono">—</span></div>
@@ -266,17 +279,5 @@ class="mt-0.5 accent-[var(--accent)]"
   </div>
 </footer>
 
-<!-- Order modal -->
-<div id="orderModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-  <div class="panel rounded-2xl w-full max-w-md p-6 fade-in">
-    <div id="modalBody"></div>
-  </div>
-</div>
-
-<style>
-.step-badge{ width:26px; height:26px; border-radius:8px; background:var(--panel2); border:1px solid var(--line); display:grid; place-items:center; font-family:'Space Grotesk'; font-weight:700; font-size:13px; color:var(--accent); }
-</style>
-
-<script type="module" src="app.js"></script>
 </body>
 </html>
