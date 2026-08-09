@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{ --bg:#0e0f13; --panel:#16181f; --panel2:#1c1f28; --line:#9ee7f7; --ink:#f3f4f6; --sub:#9aa0ae; --accent:#ff00ff; }
+  :root{ --bg:#0e0f13; --panel:#16181f; --panel2:#1c1f28; --line:#ff00ff; --ink:#f3f4f6; --sub:#9aa0ae; --accent:#ff00ff; }
   body{ font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); }
   h1,h2,h3,.display{ font-family:'Space Grotesk',sans-serif; }
   .panel{ background:var(--panel); border:1px solid var(--line); }
@@ -54,23 +54,28 @@
     <div class="flex items-center gap-3">
       <span id="authStatus" class="text-xs text-[var(--sub)] hidden sm:inline"></span>
       <button id="authBtn" class="text-sm font-medium px-3.5 py-2 rounded-lg border border-[var(--line)] hover:bg-[var(--panel2)] flex items-center gap-2">
-        <i data-lucide="user" class="w-4 h-4"></i><span id="authBtnText">Sign in</span>
+        <i data-lucide="user" class="w-4 h-4"></i><span id="authBtnText">SIGN IN</span>
       </button>
     </div>
   </div>
 </header>
 
 <!-- Hero -->
+<center>
+<img src="https://softbite.studio/assets/images/image06.jpg" ALIGN="center" height="500" width="500">
 <section class="max-w-7xl mx-auto px-5 pt-10 pb-6">
   <div class="flex flex-wrap items-end justify-between gap-4">
     <div>
-      <p class="text-[var(--accent)] text-xs font-semibold uppercase tracking-[0.2em] mb-2">Design Studio</p>
-      <h1 class="display text-3xl sm:text-4xl font-bold tracking-tight max-w-xl">Turn your OC into a custom cut vinyl decal.</h1>
-      <p class="text-[var(--sub)] mt-3 max-w-lg">Upload your artwork, pick your vinyl, and get an instant mockup with a live price estimate. We handle the rest.</p>
+      <p class="text-[var(--accent)] text-xs font-semibold uppercase tracking-[0.2em] mb-2">Custom cut Vinyl - Turn your OC, logo, quote, drawing into a stencil-like sticker made to last!</p>
+
+      <h1 class="display text-3xl sm:text-4xl font-bold tracking-tight max-w-xl">
+Decal Den
+</h1>
+      <p class="text-[var(--sub)] mt-3 max-w-lg">Upload your artwork, Choose your vinyl, and receive an Instant Mockup with a live price estimate. We'll handle the rest. </p>
     </div>
     <div class="flex gap-6 text-center">
       <div><div class="display text-2xl font-bold">7+</div><div class="text-[11px] text-[var(--sub)] uppercase tracking-wider">Vinyl types</div></div>
-      <div><div class="display text-2xl font-bold">48h</div><div class="text-[11px] text-[var(--sub)] uppercase tracking-wider">Turnaround</div></div>
+      <div><div class="display text-2xl font-bold">48h</div><div class="text-[11px] text-[var(--sub)] uppercase tracking-wider">≈</div></div>
       <div><div class="display text-2xl font-bold">B&amp;W</div><div class="text-[11px] text-[var(--sub)] uppercase tracking-wider">Auto convert</div></div>
     </div>
   </div>
@@ -112,20 +117,13 @@
 </div><div class="flex items-center gap-4 mt-3">
   <label class="flex items-center gap-2 text-sm cursor-crosshair">
     
-  <button id="removeImg" class="text-sm text-[var(--sub)] hover:text-red-400 flex items-center gap-1 ml-auto">
-    <i data-lucide="trash-2" class="w-4 h-4"></i> Remove
-  </button>
+ 
 </div>
 
-
-          <label class="flex items-center gap-2 text-sm cursor-pointer">
-
-          <button id="removeImg" class="text-sm text-[var(--sub)] hover:text-red-400 flex items-center gap-1 ml-auto">
-            <i data-lucide="trash-2" class="w-4 h-4"></i> Remove
-          </button>
         </div>
       </div>
     </section>
+
   <!-- RIGHT: Mockup + price (sticky) -->
   <div class="lg:sticky lg:top-24 h-max space-y-4">
     <section class="panel rounded-2xl overflow-hidden">
@@ -151,7 +149,7 @@
     <section class="panel rounded-2xl p-5">
       <div class="flex items-center gap-2 mb-4">
         <span class="step-badge">2</span><h2 class="display font-semibold text-lg">Choose your flavor (vinyl)</h2>
-        <sup>disclaimer: *i know it looks tasty but plz don't eat the vinyl.</sup>
+     
       </div>
       <div id="vinylGrid" class="grid sm:grid-cols-2 gap-3"></div>
 
@@ -169,15 +167,15 @@
       <div class="grid sm:grid-cols-3 gap-4">
         <div>
           <div class="flex justify-between mb-2"><label class="text-sm text-[var(--sub)]">Width <span class="text-[10px] text-[var(--sub)]">(max 8.5")</span></label><span class="text-sm font-mono"><span id="wVal">4</span>"</span></div>
-          <input type="range" id="width" min="1" max="17" value="4" step="0.5" class="w-full" />
+          <input type="range" id="width" min="1" max="8.5" value="4" step="0.5" class="w-full" />
         </div>
         <div>
           <div class="flex justify-between mb-2"><label class="text-sm text-[var(--sub)]">Height</label><span class="text-sm font-mono"><span id="hVal">4</span>"</span></div>
-          <input type="range" id="height" min="1" max="24" value="4" step="0.5" class="w-full" />
+          <input type="range" id="height" min="1" max="12" value="4" step="0.5" class="w-full" />
         </div>
         <div>
           <div class="flex justify-between mb-2"><label class="text-sm text-[var(--sub)]">Quantity</label><span class="text-sm font-mono" id="qVal">1</span></div>
-          <input type="range" id="qty" min="1" max="10" value="1" class="w-full" />
+          <input type="range" id="qty" min="1" max="8" value="1" class="w-full" />
         </div>
       </div>
       <div class="mt-4">
@@ -211,8 +209,20 @@
   </div>
 
 
-
     <section class="panel rounded-2xl p-5">
+
+<!-- Order modal -->
+<div id="orderModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+  <div class="panel rounded-2xl w-full max-w-md p-6 fade-in">
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<style>
+.step-badge{ width:26px; height:26px; border-radius:8px; background:var(--panel2); border:1px solid var(--line); display:grid; place-items:center; font-family:'Space Grotesk'; font-weight:700; font-size:13px; color:var(--accent); }
+</style>
+
+<script type="module" src="app.js"></script>
       <div class="space-y-2 text-sm">
         <div class="flex justify-between"><span class="text-[var(--sub)]">Base material</span><span id="pBase" class="font-mono">—</span></div>
         <div class="flex justify-between"><span class="text-[var(--sub)]">Area &amp; size</span><span id="pArea" class="font-mono">—</span></div>
@@ -229,9 +239,32 @@
         </div>
         <div id="total" class="display text-3xl font-bold">$0.00</div>
       </div>
-      <button id="purchaseBtn" class="btn-accent w-full mt-5 py-3.5 rounded-xl font-semibold flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+      <button id="purchaseBtn" class="btn-accent w-full mt-5 py-3.5 rounded-xl font-semibold flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-question" disabled>
         <i data-lucide="send" class="w-4.5 h-4.5"></i> Purchase &amp; send order
       </button>
+<label class="flex items-start gap-3 p-3 rounded-lg border border-[var(--line)] cursor-pointer">
+
+<input
+
+type="checkbox"
+
+id="fluffCoven"
+
+class="mt-0.5 accent-[var(--accent)]"
+
+/>
+
+<div>
+
+<div class="text-sm font-semibold">Join Fluff Coven </div>
+
+<div class="text-[11px] text-[var(--sub)]"> Discounts, free stickers & early access
+
+</div>
+
+</div>
+
+</label>
       <p id="purchaseHint" class="text-[11px] text-amber-300/90 text-center mt-3 hidden"></p>
       <p class="text-[11px] text-[var(--sub)] text-center mt-3">Your design &amp; selections are emailed to our studio to finalize.</p>
     </section>
@@ -241,27 +274,10 @@
 <footer class="border-t border-[var(--line)]">
   <div class="max-w-7xl mx-auto px-5 py-6 flex flex-wrap items-center justify-between gap-3 text-xs text-[var(--sub)]">
     <span>© 2026 DecalDen — Custom Cut Vinyl, made to order.</span>
-    <a href="/policy.html" class="ml-4 hover:text-[var(--ink)] underline underline-offset-4">Policies</a>
-    <a href="https://softbite.studio" target="_blank" rel="noopener" class="hover:text-[var(--ink)]">Powered by Soft Bite Studio</a>
+    <a href="https://softbite.studio/#policy" class="ml-4 hover:text-[var(--ink)] underline underline-offset-4">Policies</a>
+    <a href="https://softbitestudio.com">Powered By Chaos Bunnies @SoftBite.Studio</a>
   </div>
 </footer>
 
-<!-- Order modal -->
-<div id="orderModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-  <div class="panel rounded-2xl w-full max-w-md p-6 fade-in">
-    <div id="modalBody"></div>
-  </div>
-</div>
-
-<style>
-.step-badge{ width:26px; height:26px; border-radius:8px; background:var(--panel2); border:1px solid var(--line); display:grid; place-items:center; font-family:'Space Grotesk'; font-weight:700; font-size:13px; color:var(--accent); }
-</style>
-
-<script>
-  // Supabase publishable key: safe for browser use; RLS protects data.
-  window.DECALDEN_SUPABASE_URL = 'https://fdubhpdririsxrnpkzpt.supabase.co';
-  window.DECALDEN_SUPABASE_KEY = 'sb_publishable_qwo7eJAfn6Qsi1HcoqTtAA_K9ic8AmA';
-</script>
-<script type="module" src="app.js"></script>
 </body>
 </html>
