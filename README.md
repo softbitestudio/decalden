@@ -77,7 +77,7 @@ Distributed under the [Creative Commons Attribution-NonCommercial 4.0 Internatio
 
 Created with 💜 by Bunny Reckless // Soft Bite Studio  
 
-📧 `bunrec@softbite.studio`  
+📧 'xDecalDen@gmail.com`  
 © 2026 Soft Bite Studio. All rights reserved.
 
 </div>
