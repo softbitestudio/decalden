@@ -5,7 +5,7 @@ const SUPABASE_URL = window.DECALDEN_SUPABASE_URL;
 const SUPABASE_KEY = window.DECALDEN_SUPABASE_KEY;
 const supabase = (SUPABASE_URL && SUPABASE_KEY) ? createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 
-const STUDIO_EMAIL = 'softbitestudio@gmail.com';
+const STUDIO_EMAIL = 'xdecalden@gmail.com';
 
 /* ---------------- Vinyl catalog ---------------- */
 const VINYLS = [
@@ -14,18 +14,18 @@ const VINYLS = [
   { id:'matte', name:'Matte Color', desc:'Flat, no-glare finish', icon:'square', price:0.15, hasColor:true, specialOrder:false,
     colors:['#111111','#FAFAFA','#D6208A','#F44FA0','#B31E30','#6B1521','#EF5A24','#EA6420','#F3C60E','#E9F05B','#6CC24A','#2E9E4C','#1F5C3D','#0F7B85','#2FB7B1','#82E4D7','#1E5FD0','#17225E','#B18ECB','#5A2D8C','#3B2824','#EADFC4','#D3D6DB'] },
   { id:'chrome', name:'Metallic Chrome', desc:'Mirror-like metallic finish', icon:'gem', price:0.25, hasColor:true, specialOrder:false, colors:['#B8BCC2','#A98D18'] },
-  { id:'holographic', name:'Holographic', desc:'Rainbow-shift finish · special order', icon:'sparkles', price:0.20, hasColor:false, specialOrder:true, colors:['#B98CFF'] },
-  { id:'holographic-black', name:'Holographic Black', desc:'Black holo finish · special order', icon:'sparkles', price:0.25, hasColor:false, specialOrder:true, colors:['#17131d'] },
-  { id:'glow', name:'Glow-in-the-Dark', desc:'Charges in light · special order', icon:'moon-star', price:0.25, hasColor:false, specialOrder:true, colors:['#C7F9CC'] },
+  { id:'holographic', name:'Holographic', desc:'Rainbow-shift finish · special order', icon:'sparkles', price:0.30, hasColor:false, specialOrder:true, colors:['#B98CFF'] },
+  { id:'holographic-black', name:'Holographic Black', desc:'Black holo finish · special order', icon:'sparkles', price:0.30, hasColor:false, specialOrder:true, colors:['#17131d'] },
+  { id:'glow', name:'Glow-in-the-Dark', desc:'Charges in light · special order', icon:'moon-star', price:0.35, hasColor:false, specialOrder:true, colors:['#C7F9CC'] },
   { id:'hologlow', name:'Holo/Glow', desc:'Holographic + glow · special order', icon:'sparkles', price:0.40, hasColor:false, specialOrder:true, colors:['#C7F9CC'] },
   { id:'reflective-white', name:'Reflective White', desc:'Reflective white · special order', icon:'flashlight', price:0.40, hasColor:false, specialOrder:true, colors:['#FAFAFA'] },
   { id:'reflective-black', name:'Reflective Black', desc:'Reflective black · special order', icon:'flashlight', price:0.40, hasColor:false, specialOrder:true, colors:['#111111'] },
-  { id:'glossy',  name:'Glossy Color',       desc:'Vivid, smooth, weatherproof',      icon:'droplet',        price:0.10, hasColor:true,  colors:['#e11d48','#f97316','#facc15','#22c55e','#0ea5e9','#6366f1','#111111','#ffffff'] },
-  { id:'matte',   name:'Matte Color',        desc:'Flat, no-glare finish',            icon:'square',         price:0.15, hasColor:true,  colors:['#b91c1c','#ea580c','#ca8a04','#15803d','#1d4ed8','#4338ca','#111111','#f3f4f6'] },
+  { id:'glossy',  name:'Glossy Color',       desc:'Vivid, smooth, weatherproof',      icon:'droplet',        price:0.25, hasColor:true,  colors:['#e11d48','#f97316','#facc15','#22c55e','#0ea5e9','#6366f1','#111111','#ffffff'] },
+  { id:'matte',   name:'Matte Color',        desc:'Flat, no-glare finish',            icon:'square',         price:0.20, hasColor:true,  colors:['#b91c1c','#ea580c','#ca8a04','#15803d','#1d4ed8','#4338ca','#111111','#f3f4f6'] },
   { id:'reflective', name:'Reflective',      desc:'Bounces light at night',           icon:'flashlight',     price:0.40, hasColor:true,  colors:['#ffffff','red','#000000'] },
-  { id:'glow',    name:'Glow-in-the-Dark',   desc:'Charges in light, glows at night', icon:'moon-star',      price:0.25, hasColor:false, colors:['cyan', 'lightgreen'] },
-  { id:'holographic', name:'Holographic',    desc:'Rainbow shift chrome',             icon:'sparkles',       price:0.20, hasColor:false, colors:['#c4b5fd'] },
-  { id:'chrome',  name:'Metallic Chrome',    desc:'Mirror-like metal look',           icon:'gem',            price:0.25, hasColor:true,  colors:['#d4d4d8','#fbbf24','#f43f5e','#60a5fa'] },
+  { id:'glow',    name:'Glow-in-the-Dark',   desc:'Charges in light, glows at night', icon:'moon-star',      price:0.35, hasColor:false, colors:['cyan', 'lightgreen'] },
+  { id:'holographic', name:'Holographic',    desc:'Rainbow shift chrome',             icon:'sparkles',       price:0.30, hasColor:false, colors:['#c4b5fd'] },
+  { id:'chrome',  name:'Metallic Chrome',    desc:'Mirror-like metal look',           icon:'gem',            price:0.30, hasColor:true,  colors:['#d4d4d8','#fbbf24','#f43f5e','#60a5fa'] },
   { id:'hologlow', name:'Holo/Glow',         desc:'Holographic + glow combo',          icon:'sparkles',       price:0.40, hasColor:false, colors:['#c7f9cc'] },
 ];
 
