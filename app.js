@@ -5,29 +5,28 @@ const SUPABASE_URL = window.DECALDEN_SUPABASE_URL;
 const SUPABASE_KEY = window.DECALDEN_SUPABASE_KEY;
 const supabase = (SUPABASE_URL && SUPABASE_KEY) ? createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 
-const STUDIO_EMAIL = 'xdecalden@gmail.com';
+const STUDIO_EMAIL = 'softbitestudio@gmail.com';
 
 /* ---------------- Vinyl catalog ---------------- */
-const VINYLS = [
-  { id:'glossy', name:'Glossy Color', desc:'Vivid, smooth, weatherproof', icon:'droplet', price:0.10, hasColor:true, specialOrder:false,
-    colors:['#111111','#FAFAFA','#D6208A','#F44FA0','#F2BAD3','#B31E30','#6B1521','#EF5A24','#EA6420','#A98D18','#E8A72E','#F3C60E','#E9F05B','#6CC24A','#2E9E4C','#1F5C3D','#0F7B85','#2FB7B1','#82E4D7','#5AB9DA','#1E5FD0','#17225E','#B18ECB','#5A2D8C','#3B2824','#EADFC4','#B8BCC2','#D3D6DB','#3E4149'] },
-  { id:'matte', name:'Matte Color', desc:'Flat, no-glare finish', icon:'square', price:0.15, hasColor:true, specialOrder:false,
-    colors:['#111111','#FAFAFA','#D6208A','#F44FA0','#B31E30','#6B1521','#EF5A24','#EA6420','#F3C60E','#E9F05B','#6CC24A','#2E9E4C','#1F5C3D','#0F7B85','#2FB7B1','#82E4D7','#1E5FD0','#17225E','#B18ECB','#5A2D8C','#3B2824','#EADFC4','#D3D6DB'] },
-  { id:'chrome', name:'Metallic Chrome', desc:'Mirror-like metallic finish', icon:'gem', price:0.25, hasColor:true, specialOrder:false, colors:['#B8BCC2','#A98D18'] },
-  { id:'holographic', name:'Holographic', desc:'Rainbow-shift finish · special order', icon:'sparkles', price:0.30, hasColor:false, specialOrder:true, colors:['#B98CFF'] },
-  { id:'holographic-black', name:'Holographic Black', desc:'Black holo finish · special order', icon:'sparkles', price:0.30, hasColor:false, specialOrder:true, colors:['#17131d'] },
-  { id:'glow', name:'Glow-in-the-Dark', desc:'Charges in light · special order', icon:'moon-star', price:0.35, hasColor:false, specialOrder:true, colors:['#C7F9CC'] },
-  { id:'hologlow', name:'Holo/Glow', desc:'Holographic + glow · special order', icon:'sparkles', price:0.40, hasColor:false, specialOrder:true, colors:['#C7F9CC'] },
-  { id:'reflective-white', name:'Reflective White', desc:'Reflective white · special order', icon:'flashlight', price:0.40, hasColor:false, specialOrder:true, colors:['#FAFAFA'] },
-  { id:'reflective-black', name:'Reflective Black', desc:'Reflective black · special order', icon:'flashlight', price:0.40, hasColor:false, specialOrder:true, colors:['#111111'] },
-  { id:'glossy',  name:'Glossy Color',       desc:'Vivid, smooth, weatherproof',      icon:'droplet',        price:0.25, hasColor:true,  colors:['#e11d48','#f97316','#facc15','#22c55e','#0ea5e9','#6366f1','#111111','#ffffff'] },
-  { id:'matte',   name:'Matte Color',        desc:'Flat, no-glare finish',            icon:'square',         price:0.20, hasColor:true,  colors:['#b91c1c','#ea580c','#ca8a04','#15803d','#1d4ed8','#4338ca','#111111','#f3f4f6'] },
-  { id:'reflective', name:'Reflective',      desc:'Bounces light at night',           icon:'flashlight',     price:0.40, hasColor:true,  colors:['#ffffff','red','#000000'] },
-  { id:'glow',    name:'Glow-in-the-Dark',   desc:'Charges in light, glows at night', icon:'moon-star',      price:0.35, hasColor:false, colors:['cyan', 'lightgreen'] },
-  { id:'holographic', name:'Holographic',    desc:'Rainbow shift chrome',             icon:'sparkles',       price:0.30, hasColor:false, colors:['#c4b5fd'] },
-  { id:'chrome',  name:'Metallic Chrome',    desc:'Mirror-like metal look',           icon:'gem',            price:0.30, hasColor:true,  colors:['#d4d4d8','#fbbf24','#f43f5e','#60a5fa'] },
-  { id:'hologlow', name:'Holo/Glow',         desc:'Holographic + glow combo',          icon:'sparkles',       price:0.40, hasColor:false, colors:['#c7f9cc'] },
-];
+let VINYLS = [];
+
+async function loadCatalog(){
+  const response = await fetch('/api/catalog', { headers: { Accept: 'application/json' } });
+  if(!response.ok) throw new Error('Catalog unavailable');
+  const result = await response.json();
+  VINYLS = (result.items || []).map(item => ({
+    id: item.material_id,
+    name: item.name,
+    desc: item.description,
+    icon: item.icon || 'sparkles',
+    price: Number(item.price_per_sq_in),
+    hasColor: !!item.has_color,
+    specialOrder: !!item.special_order,
+    colors: Array.isArray(item.colors) ? item.colors : [],
+  }));
+  if(!VINYLS.length) throw new Error('Catalog is empty');
+}
+
 
 const SHAPES = [
   { id:'contour', name:'Contour cut', mult:1.0 },
@@ -66,7 +65,7 @@ function buildVinyls(){
       <div class="w-9 h-9 rounded-lg bg-[var(--panel2)] grid place-items-center mb-2.5">
         <i data-lucide="${v.icon}" class="w-5 h-5 text-[var(--accent)]"></i>
       </div>
-      <div class="font-semibold text-sm">${v.name} ${v.specialOrder ? '<span class=\"ml-1 text-[10px] text-[var(--accent)]\">SPECIAL ORDER</span>' : ''}</div>
+      <div class="font-semibold text-sm">${v.name} ${v.specialOrder ? '<span class="ml-1 text-[10px] text-[var(--accent)]">SPECIAL ORDER</span>' : ''}</div>
       <div class="text-[11px] text-[var(--sub)] mt-0.5">${v.desc}</div>
       <div class="text-[11px] font-mono text-[var(--sub)] mt-2">$${v.price.toFixed(2)}/in²</div>
     </button>`).join('');
@@ -381,6 +380,27 @@ async function refreshAuth(){
   $('authStatus').textContent=signedIn ? ('Signed in as '+(currentUser.email||'customer')) : '';
   $('authStatus').classList.toggle('hidden',!signedIn); render();
 }
+const fluffCoven = $('fluffCoven');
+if(fluffCoven) fluffCoven.addEventListener('change', async () => {
+  if(!fluffCoven.checked) return;
+  const email = currentUser?.email;
+  if(!email){
+    fluffCoven.checked = false;
+    openModal('<p class="text-sm">Sign in first, then join Fluff Coven with the email on your account.</p>');
+    return;
+  }
+  fluffCoven.disabled = true;
+  try {
+    const response = await fetch('/api/fluff-signup', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email}) });
+    const result = await response.json().catch(() => ({}));
+    if(!response.ok) throw new Error(result.error || 'Signup unavailable.');
+    openModal('<p class="text-sm">You’re in. Welcome to Fluff Coven ✦</p>');
+  } catch(error) {
+    fluffCoven.checked = false;
+    openModal(`<p class="text-sm text-red-300">${String(error.message || 'Signup unavailable.').replace(/[<>]/g,'')}</p>`);
+  } finally { fluffCoven.disabled = false; }
+});
+
 $('authBtn').addEventListener('click',async()=>{
   if(!supabase){ openModal('<p class=\"text-sm\">Supabase is not configured yet.</p>'); return; }
   if(signedIn){ await supabase.auth.signOut(); await refreshAuth(); return; }
@@ -401,8 +421,10 @@ $('purchaseBtn').addEventListener('click', onPurchase);
 
 async function onPurchase(){
   if(!state.imageEl || !state.vinyl) return;
-  if(!supabase){ openModal('<p class=\"text-sm\">Supabase is not configured yet.</p>'); return; }
-  if(!signedIn){ await refreshAuth(); if(!signedIn){ openModal('<p class=\"text-sm\">Please sign in before placing an order.</p>'); return; } }
+  if(!signedIn){
+    openModal('<p class="text-sm">Please sign in before placing your order.</p>');
+    return;
+  }
 
   const p=computePrice();
   openModal(`
@@ -410,38 +432,36 @@ async function onPurchase(){
       <div class="w-14 h-14 rounded-full bg-[var(--panel2)] grid place-items-center mx-auto mb-4">
         <i data-lucide="loader-2" class="w-7 h-7 text-[var(--accent)] animate-spin"></i>
       </div>
-      <h3 class="display font-semibold text-lg">Preparing your order…</h3>
-      <p class="text-sm text-[var(--sub)] mt-1">Uploading your design &amp; building the order email.</p>
+      <h3 class="display font-semibold text-lg">Opening secure checkout…</h3>
+      <p class="text-sm text-[var(--sub)] mt-1">Stripe will collect payment and shipping details securely.</p>
     </div>`);
 
-  try{
-    // 1. render a high-res B&W export of the decal on transparent bg
-    const exportUrl = await buildExportPng();
-    // 2. upload both mockup and processed art to cloud
-    const stamp=Date.now();
-    if(!currentUser) throw new Error('Please sign in before uploading an order.');
-    const mockBlob = await (await fetch(mockCanvas.toDataURL('image/png'))).blob();
-    const artBlob = await (await fetch(exportUrl)).blob();
-    const folder=`${currentUser.id}/${stamp}`;
-    const mockPath=`${folder}/mockup.png`, artPath=`${folder}/decal-bw.png`;
-    const bucket=supabase.storage.from('decal-orders');
-    const up1=await bucket.upload(mockPath,mockBlob,{contentType:'image/png',upsert:false});
-    if(up1.error) throw up1.error;
-    const up2=await bucket.upload(artPath,artBlob,{contentType:'image/png',upsert:false});
-    if(up2.error) throw up2.error;
-    const mockLink=bucket.getPublicUrl(mockPath).data.publicUrl;
-    const artLink=bucket.getPublicUrl(artPath).data.publicUrl;
-
-    const order = buildOrderSummary(p);
-    const mailto = buildMailto(order, mockLink, artLink);
-
-    showOrderReady(order, mockLink, artLink, mailto);
-  }catch(err){
+  try {
+    const response = await fetch('/api/create-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        vinyl: state.vinyl.id,
+        color: state.color,
+        shape: state.shape.id,
+        shipping: state.shipping.id,
+        width: state.width,
+        height: state.height,
+        quantity: state.qty,
+        artworkName: state.imgName,
+        email: currentUser?.email || '',
+        clientTotal: Math.round(p.total * 100),
+      }),
+    });
+    const result = await response.json();
+    if(!response.ok || !result.url) throw new Error(result.error || 'Checkout is unavailable.');
+    window.location.assign(result.url);
+  } catch(err) {
     openModal(`
       <div class="text-center">
         <div class="w-14 h-14 rounded-full bg-red-500/15 grid place-items-center mx-auto mb-4"><i data-lucide="alert-triangle" class="w-7 h-7 text-red-400"></i></div>
-        <h3 class="display font-semibold text-lg">Something went wrong</h3>
-        <p class="text-sm text-[var(--sub)] mt-1">${(err&&err.message)||'Please try again.'}</p>
+        <h3 class="display font-semibold text-lg">Checkout could not open</h3>
+        <p class="text-sm text-[var(--sub)] mt-1">${String(err?.message || 'Please try again.').replace(/[<>]/g, '')}</p>
         <button onclick="document.getElementById('orderModal').classList.add('hidden')" class="mt-5 px-4 py-2 rounded-lg border border-[var(--line)] text-sm">Close</button>
       </div>`);
     createIcons({icons});
@@ -573,5 +593,8 @@ function showOrderReady(o, mockLink, artLink, mailto){
 }
 
 /* ---------------- Init ---------------- */
-buildVinyls(); buildShapes(); buildShipping(); bindAddress(); updatePrice(); refreshAuth();
-createIcons({icons});
+async function init(){
+  try { await loadCatalog(); buildVinyls(); buildShapes(); buildShipping(); bindAddress(); updatePrice(); await refreshAuth(); createIcons({icons}); }
+  catch(error){ console.error(error); $('vinylGrid').innerHTML='<p class="text-sm text-red-300">The vinyl catalog is temporarily unavailable. Please try again shortly.</p>'; }
+}
+init();
